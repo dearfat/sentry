@@ -86,6 +86,13 @@ def _webhook_event_data(event, group_id, project_id):
 @instrumented_task(name="sentry.tasks.sentry_apps.send_alert_event", **TASK_OPTIONS)
 @retry(**RETRY_OPTIONS)
 def send_alert_event(event, rule, sentry_app_id):
+    """
+    WHAT IS AN ALERT EVENT?
+    :param event:
+    :param rule:
+    :param sentry_app_id:
+    :return:
+    """
     group = event.group
     project = Project.objects.get_from_cache(id=group.project_id)
     organization = Organization.objects.get_from_cache(id=project.organization_id)
@@ -266,6 +273,7 @@ def notify_sentry_app(event, futures):
         )
 
 
+# TODO MARCOS maybe this is preferable?
 def send_webhooks(installation, event, **kwargs):
     try:
         servicehook = ServiceHook.objects.get(
@@ -325,6 +333,13 @@ def ignore_unpublished_app_errors(func):
 
 @ignore_unpublished_app_errors
 def send_and_save_webhook_request(url, sentry_app, app_platform_event):
+    """
+    TODO MARCOS DESCRIBE
+    :param url:
+    :param sentry_app:
+    :param app_platform_event: WHAT IS THIS?
+    :return:
+    """
     buffer = SentryAppWebhookRequestsBuffer(sentry_app)
 
     org_id = app_platform_event.install.organization_id

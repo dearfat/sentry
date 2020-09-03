@@ -23,6 +23,14 @@ logger = logging.getLogger("sentry.integrations.sentry_app")
 
 
 def send_incident_alert_notification(action, incident, metric_value):
+    """
+    TODO MARCOS describe
+
+    :param action: AlertRuleTriggerAction
+    :param incident:
+    :param metric_value:
+    :return:
+    """
     sentry_app = action.sentry_app
     # TODO might need to fetch this
     organization = incident.organization
